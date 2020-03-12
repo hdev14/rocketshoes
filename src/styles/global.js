@@ -27,6 +27,10 @@ const GlobalStyle = createGlobalStyle`
     font: 14px 'Roboto', sans-serif;
   }
 
+  button {
+    cursor: pointer;
+  }
+
   div#root {
     max-width: 1020px;
     margin: 0 auto;
