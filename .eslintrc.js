@@ -30,5 +30,6 @@ module.exports = {
     'react/state-in-constructor': [ 'warn' ,'never'],
     'react/static-property-placement': [ 'warn' ,'static public field'],
     'import/prefer-default-export': 'off',
+    'no-console': ['error', { allow: ['tron']}]
   },
 };

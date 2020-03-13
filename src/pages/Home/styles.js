@@ -3,10 +3,11 @@ import { darken } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
 
   li {
+    max-width: 300px;
     background: white;
     padding: 10px;
     border-radius: 5px;
@@ -47,6 +48,7 @@ export const ProductList = styled.ul`
       align-items: center;
       margin-top: auto;
       transition: background-color .2s;
+      overflow: hidden;
 
       &:hover {
         background-color: ${darken(0.05, '#333')}
@@ -57,8 +59,7 @@ export const ProductList = styled.ul`
         flex-direction: row;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.5);
-        padding: 5px;
-        border-radius: 4px 0 0 4px;
+        padding: 5px 10px;
         justify-content: center;
         font-weight: bold;
         svg {
