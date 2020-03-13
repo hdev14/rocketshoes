@@ -10,7 +10,15 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { Product, ProductTable, Total } from './styles';
 
-function Cart({ cart, removeFromCart }) {
+function Cart({ cart, removeFromCart, updateAmount }) {
+  function incrementAmount(product) {
+    updateAmount(product.id, product.amount + 1);
+  }
+
+  function decrementAmount(product) {
+    updateAmount(product.id, product.amount - 1);
+  }
+
   return (
     <Product>
       <ProductTable>
@@ -34,11 +42,11 @@ function Cart({ cart, removeFromCart }) {
               </td>
               <td>
                 <div>
-                  <button type="button">
+                  <button type="button" onClick={() => decrementAmount(product)}>
                     <FiMinusSquare size={20} />
                   </button>
                   <input type="number" readOnly value={product.amount} />
-                  <button type="button">
+                  <button type="button" onClick={() => incrementAmount(product)}>
                     <FiPlusSquare size={20} />
                   </button>
                 </div>
@@ -77,6 +85,7 @@ function Cart({ cart, removeFromCart }) {
 Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeFromCart: PropTypes.func.isRequired,
+  updateAmount: PropTypes.func.isRequired,
 };
 
 const mapStateProps = (state) => ({
