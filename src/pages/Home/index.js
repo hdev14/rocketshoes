@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { FiShoppingCart } from 'react-icons/fi';
 
 import api from '../../services/api';
 import { formatPrice } from '../../utils/format';
 
+import * as CartActions from '../../store/modules/cart/actions';
+
 import { ProductList } from './styles';
 
 class Home extends Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
+    addToCart: PropTypes.func.isRequired,
   }
 
   state = {
@@ -31,11 +34,8 @@ class Home extends Component {
   }
 
   handleAddProduct = (product) => {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'ADD_TO_CART',
-      product,
-    });
+    const { addToCart } = this.props;
+    addToCart(product);
   }
 
   render() {
@@ -65,4 +65,6 @@ class Home extends Component {
   }
 }
 
-export default connect()(Home);
+const mapDispatchProps = (dispatch) => bindActionCreators(CartActions, dispatch);
+
+export default connect(null, mapDispatchProps)(Home);

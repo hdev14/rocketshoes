@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import {
   FiPlusSquare, FiMinusSquare, FiTrash2, FiChevronRight,
 } from 'react-icons/fi';
 
+import * as CartActions from '../../store/modules/cart/actions';
+
 import { Product, ProductTable, Total } from './styles';
 
-function Cart({ cart, dispatch }) {
+function Cart({ cart, removeFromCart }) {
   return (
     <Product>
       <ProductTable>
@@ -46,10 +49,7 @@ function Cart({ cart, dispatch }) {
               <td>
                 <button
                   type="button"
-                  onClick={() => dispatch({
-                    type: 'REMOVE_FROM_CART',
-                    id: product.id,
-                  })}
+                  onClick={() => removeFromCart(product.id)}
                 >
                   <FiTrash2 color="#fff" size={20} />
                 </button>
@@ -76,11 +76,13 @@ function Cart({ cart, dispatch }) {
 
 Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
 };
 
 const mapStateProps = (state) => ({
   cart: state.cart,
 });
 
-export default connect(mapStateProps)(Cart);
+const mapDispatchProps = (dispatch) => bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateProps, mapDispatchProps)(Cart);
