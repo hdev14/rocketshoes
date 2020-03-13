@@ -105,7 +105,7 @@ export const ProductTable = styled.table`
 
       input {
         height: 30px;
-        width: 30px;
+        width: 50px;
         text-align: center;
         border: 1px solid #eee;
       }

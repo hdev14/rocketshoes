@@ -14,6 +14,7 @@ import { ProductList } from './styles';
 class Home extends Component {
   static propTypes = {
     addToCart: PropTypes.func.isRequired,
+    amount: PropTypes.number,
   }
 
   state = {
@@ -40,6 +41,7 @@ class Home extends Component {
 
   render() {
     const { products } = this.state;
+    const { amount } = this.props;
 
     return (
       <ProductList>
@@ -54,7 +56,7 @@ class Home extends Component {
               <div>
                 <FiShoppingCart color="#fff" size={20} />
                 {' '}
-                3
+                {amount[product.id] || 0}
               </div>
               <span>ADICIONAR NO CARRINHO</span>
             </button>
@@ -65,6 +67,13 @@ class Home extends Component {
   }
 }
 
+const mapStateProps = (state) => ({
+  amount: state.cart.reduce((amount, product) => {
+    amount[product.id] = product.amount;
+    return amount;
+  }, {}),
+});
+
 const mapDispatchProps = (dispatch) => bindActionCreators(CartActions, dispatch);
 
-export default connect(null, mapDispatchProps)(Home);
+export default connect(mapStateProps, mapDispatchProps)(Home);
