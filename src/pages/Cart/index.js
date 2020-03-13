@@ -6,11 +6,15 @@ import {
   FiPlusSquare, FiMinusSquare, FiTrash2, FiChevronRight,
 } from 'react-icons/fi';
 
+import { formatPrice } from '../../utils/format';
+
 import * as CartActions from '../../store/modules/cart/actions';
 
 import { Product, ProductTable, Total } from './styles';
 
-function Cart({ cart, removeFromCart, updateAmount }) {
+function Cart({
+  cart, total, removeFromCart, updateAmount,
+}) {
   function incrementAmount(product) {
     updateAmount(product.id, product.amount + 1);
   }
@@ -52,7 +56,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
                 </div>
               </td>
               <td>
-                <strong>R$ 120,00</strong>
+                <strong>{product.subtotal}</strong>
               </td>
               <td>
                 <button
@@ -70,7 +74,7 @@ function Cart({ cart, removeFromCart, updateAmount }) {
       <footer>
         <Total>
           <strong>total</strong>
-          <span>R$ 120,00 </span>
+          <span>{total}</span>
         </Total>
         <button type="button">
           Finalizar compra
@@ -84,12 +88,22 @@ function Cart({ cart, removeFromCart, updateAmount }) {
 
 Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
+  total: PropTypes.number.isRequired,
   removeFromCart: PropTypes.func.isRequired,
   updateAmount: PropTypes.func.isRequired,
 };
 
 const mapStateProps = (state) => ({
-  cart: state.cart,
+  cart: state.cart.map((product) => ({
+    ...product,
+    subtotal: formatPrice(product.price * product.amount),
+  })),
+  total: formatPrice(
+    state.cart.reduce(
+      (total, product) => total + product.price * product.amount,
+      0,
+    ),
+  ),
 });
 
 const mapDispatchProps = (dispatch) => bindActionCreators(CartActions, dispatch);
