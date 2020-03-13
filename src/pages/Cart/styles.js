@@ -75,6 +75,7 @@ export const ProductTable = styled.table`
       align-items: center;
       padding: 5px;
       transition: background-color .2s;
+      outline: none;
 
       &:hover {
         background-color: ${darken(0.1, '#666')};
@@ -104,7 +105,7 @@ export const ProductTable = styled.table`
 
       input {
         height: 30px;
-        width: 30px;
+        width: 50px;
         text-align: center;
         border: 1px solid #eee;
       }
