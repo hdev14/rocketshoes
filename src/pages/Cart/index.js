@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import {
-  FiPlusSquare, FiMinusSquare, FiTrash2, FiChevronRight,
+  FiPlusSquare, FiMinusSquare, FiTrash2, FiChevronRight, FiShoppingCart,
 } from 'react-icons/fi';
 
 import { formatPrice } from '../../utils/format';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
-import { Product, ProductTable, Total } from './styles';
+import {
+  Product, ProductTable, Total, EmptyCart,
+} from './styles';
 
 function Cart({
   cart, total, removeFromCart, updateAmountRequest,
@@ -25,63 +27,73 @@ function Cart({
 
   return (
     <Product>
-      <ProductTable>
-        <thead>
-          <th label="img-product" />
-          <th>produto</th>
-          <th>qtd</th>
-          <th>subtotal</th>
-          <th label="#" />
-        </thead>
-        <tbody>
+      {cart.length === 0 ? (
+        <EmptyCart>
+          <FiShoppingCart color="#999" size={50} />
+          <strong>Carrinho vazio</strong>
+        </EmptyCart>
+      ) : (
+        <>
+          <ProductTable>
+            <thead>
+              <th label="img-product" />
+              <th>produto</th>
+              <th>qtd</th>
+              <th>subtotal</th>
+              <th label="#" />
+            </thead>
+            <tbody>
 
-          {cart.map((product) => (
-            <tr>
-              <td>
-                <img src={product.image} alt={product.title} />
-              </td>
-              <td>
-                <strong>{product.title}</strong>
-                <span>{product.priceFormatted}</span>
-              </td>
-              <td>
-                <div>
-                  <button type="button" onClick={() => decrementAmount(product)}>
-                    <FiMinusSquare size={20} />
-                  </button>
-                  <input type="number" readOnly value={product.amount} />
-                  <button type="button" onClick={() => incrementAmount(product)}>
-                    <FiPlusSquare size={20} />
-                  </button>
-                </div>
-              </td>
-              <td>
-                <strong>{product.subtotal}</strong>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => removeFromCart(product.id)}
-                >
-                  <FiTrash2 color="#fff" size={20} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </ProductTable>
+              {cart.map((product) => (
+                <tr>
+                  <td>
+                    <img src={product.image} alt={product.title} />
+                  </td>
+                  <td>
+                    <strong>{product.title}</strong>
+                    <span>{product.priceFormatted}</span>
+                  </td>
+                  <td>
+                    <div>
+                      <button type="button" onClick={() => decrementAmount(product)}>
+                        <FiMinusSquare size={20} />
+                      </button>
+                      <input type="number" readOnly value={product.amount} />
+                      <button type="button" onClick={() => incrementAmount(product)}>
+                        <FiPlusSquare size={20} />
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <strong>{product.subtotal}</strong>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(product.id)}
+                    >
+                      <FiTrash2 color="#fff" size={20} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </ProductTable>
 
-      <footer>
-        <Total>
-          <strong>total</strong>
-          <span>{total}</span>
-        </Total>
-        <button type="button">
-          Finalizar compra
-          {' '}
-          <FiChevronRight color="#fff" size={20} />
-        </button>
-      </footer>
+          <footer>
+            <Total>
+              <strong>total</strong>
+              <span>{total}</span>
+            </Total>
+            <button type="button">
+              Finalizar compra
+              {' '}
+              <FiChevronRight color="#fff" size={20} />
+            </button>
+          </footer>
+
+        </>
+      )}
     </Product>
   );
 }
