@@ -1,5 +1,31 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+import { FiLoader } from 'react-icons/fi';
+
+
+const loading = keyframes`
+  0% {
+    transform: rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(360deg);
+    opacity: 0.1;
+  }
+`;
+
+
+export const Loading = styled(FiLoader)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: ${loading} 3s linear infinite;
+`;
+
 
 export const ProductList = styled.ul`
   display: grid;
