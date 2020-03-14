@@ -13,14 +13,14 @@ import * as CartActions from '../../store/modules/cart/actions';
 import { Product, ProductTable, Total } from './styles';
 
 function Cart({
-  cart, total, removeFromCart, updateAmount,
+  cart, total, removeFromCart, updateAmountRequest,
 }) {
   function incrementAmount(product) {
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   }
 
   function decrementAmount(product) {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   }
 
   return (
@@ -90,7 +90,7 @@ Cart.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   total: PropTypes.number.isRequired,
   removeFromCart: PropTypes.func.isRequired,
-  updateAmount: PropTypes.func.isRequired,
+  updateAmountRequest: PropTypes.func.isRequired,
 };
 
 const mapStateProps = (state) => ({
