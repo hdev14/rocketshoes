@@ -9,7 +9,7 @@ import { formatPrice } from '../../utils/format';
 
 import * as CartActions from '../../store/modules/cart/actions';
 
-import { ProductList } from './styles';
+import { ProductList, Loading } from './styles';
 
 class Home extends Component {
   static propTypes = {
@@ -19,6 +19,7 @@ class Home extends Component {
 
   state = {
     products: [],
+    loading: true,
   }
 
   async componentDidMount() {
@@ -31,6 +32,7 @@ class Home extends Component {
 
     this.setState({
       products: data,
+      loading: false,
     });
   }
 
@@ -40,29 +42,35 @@ class Home extends Component {
   }
 
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     const { amount } = this.props;
 
     return (
-      <ProductList>
-        {products.map((product) => (
-          <li>
-            <img src={product.image} alt={product.title} />
-            <div>
-              <strong>{product.title}</strong>
-              <span>{product.priceFormatted}</span>
-            </div>
-            <button type="button" onClick={() => this.handleAddProduct(product.id)}>
-              <div>
-                <FiShoppingCart color="#fff" size={20} />
-                {' '}
-                {amount[product.id] || 0}
-              </div>
-              <span>ADICIONAR NO CARRINHO</span>
-            </button>
-          </li>
-        ))}
-      </ProductList>
+      <>
+        {loading ? (
+          <Loading id="laoding" color="#666" size={90} />
+        ) : (
+          <ProductList>
+            {products.map((product) => (
+              <li>
+                <img src={product.image} alt={product.title} />
+                <div>
+                  <strong>{product.title}</strong>
+                  <span>{product.priceFormatted}</span>
+                </div>
+                <button type="button" onClick={() => this.handleAddProduct(product.id)}>
+                  <div>
+                    <FiShoppingCart color="#fff" size={20} />
+                    {' '}
+                    {amount[product.id] || 0}
+                  </div>
+                  <span>ADICIONAR NO CARRINHO</span>
+                </button>
+              </li>
+            ))}
+          </ProductList>
+        )}
+      </>
     );
   }
 }
