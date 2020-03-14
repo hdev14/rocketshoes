@@ -37,6 +37,7 @@ export const Product = styled.div`
 
 export const ProductTable = styled.table`
   width: 100%;
+  border-collapse: collapse;
 
   thead th {
     text-align: left;
@@ -50,66 +51,75 @@ export const ProductTable = styled.table`
     border-radius: 4px;
   }
 
-  tbody td {
-    padding: 12px;
 
-    strong {
-      font-size: 14px;
-      color: #333;
+  tbody {
+
+    tr + tr {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
     }
 
-    span {
-      display: block;
-      color: black;
-      margin-top: 5px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+    td {
+      padding: 12px;
 
-    button {
-      background: #666;
-      border-radius: 4px;
-      border: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 5px;
-      transition: background-color .2s;
-      outline: none;
-
-      &:hover {
-        background-color: ${darken(0.1, '#666')};
+      strong {
+        font-size: 14px;
+        color: #333;
       }
-    }
 
-    div {
-      display: flex;
-      align-items: center;
+      span {
+        display: block;
+        color: black;
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: bold;
+      }
 
       button {
-        background: none;
-        transition: background-color .2s, color .2s;
+        background: #666;
+        border-radius: 4px;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        transition: background-color .2s;
+        outline: none;
 
         &:hover {
-          color: white;
-        }
-
-        &:first-child {
-          border-radius: 4px 0 0 4px;
-        }
-
-        &:last-child {
-          border-radius: 0 4px 4px 0;
+          background-color: ${darken(0.1, '#666')};
         }
       }
 
-      input {
-        height: 30px;
-        width: 50px;
-        text-align: center;
-        border: 1px solid #eee;
+      div {
+        display: flex;
+        align-items: center;
+
+        button {
+          background: none;
+          transition: background-color .2s, color .2s;
+
+          &:hover {
+            color: white;
+          }
+
+          &:first-child {
+            border-radius: 4px 0 0 4px;
+          }
+
+          &:last-child {
+            border-radius: 0 4px 4px 0;
+          }
+        }
+
+        input {
+          height: 30px;
+          width: 50px;
+          text-align: center;
+          border: 1px solid #eee;
+        }
       }
-    }
+  }
   }
 `;
 

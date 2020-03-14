@@ -13,8 +13,8 @@ import { ProductList } from './styles';
 
 class Home extends Component {
   static propTypes = {
-    addToCart: PropTypes.func.isRequired,
-    amount: PropTypes.number,
+    addToCartRequest: PropTypes.func.isRequired,
+    amount: PropTypes.number.isRequired,
   }
 
   state = {
@@ -34,9 +34,9 @@ class Home extends Component {
     });
   }
 
-  handleAddProduct = (product) => {
-    const { addToCart } = this.props;
-    addToCart(product);
+  handleAddProduct = (id) => {
+    const { addToCartRequest } = this.props;
+    addToCartRequest(id);
   }
 
   render() {
@@ -52,7 +52,7 @@ class Home extends Component {
               <strong>{product.title}</strong>
               <span>{product.priceFormatted}</span>
             </div>
-            <button type="button" onClick={() => this.handleAddProduct(product)}>
+            <button type="button" onClick={() => this.handleAddProduct(product.id)}>
               <div>
                 <FiShoppingCart color="#fff" size={20} />
                 {' '}
