@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { FiShoppingCart } from 'react-icons/fi';
 
 import { Navbar, Cart } from './styles';
 
 import logo from '../../assets/imgs/logo.svg';
 
-function Header({ quantityOfProducts }) {
+export default function Header() {
+  const quantityOfProducts = useSelector((state) => state.cart.length);
+
   return (
     <Navbar>
       <Link to="/">
@@ -29,11 +30,3 @@ function Header({ quantityOfProducts }) {
     </Navbar>
   );
 }
-
-Header.propTypes = {
-  quantityOfProducts: PropTypes.number.isRequired,
-};
-
-export default connect((state) => ({
-  quantityOfProducts: state.cart.length,
-}))(Header);
